@@ -23,6 +23,7 @@ class ListItem extends Component {
                                 <tr key={index}>
                                     <td style={{  }}>{prop[0]}</td>
                                     <td>{prop[1]}</td>
+                                    <td>{prop[2]}</td>
                                 </tr>
                             )}
                         </tbody>

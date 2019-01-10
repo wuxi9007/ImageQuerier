@@ -1,12 +1,14 @@
 const con = require('./Connection');
 
-saveImage = (image) => {
-    con.connection.query('INSERT INTO images SET ?', image, (err, result, fields) => {
-        if (!err) {
-            // send imageID
-            return result.insertId.toString();
-        }
-    })
+const saveImage = (image) => {
+    return new Promise((resolve, reject) => {
+        con.connection.query('INSERT INTO images SET ?', image, (err, result, fields) => {
+            if (!err) {
+                // send imageID
+                resolve(result.insertId.toString());
+            }
+        });
+    });
 }
 
 exports.createImage = (req, res, next) => {
@@ -17,12 +19,15 @@ exports.createImage = (req, res, next) => {
         'user_id': parseInt(userID),
         'created_at': new Date().toISOString().slice(0, 19).replace('T', ' ')
     };
-    res.send(saveImage(image));
+    saveImage(image).then((id) => {
+        console.log(id);
+        res.send(id);
+    })
 }
 
 
 
-saveAnnotation = (annotations, imageID, res) => {
+const saveAnnotation = (annotations, imageID, callback) => {
     for (var i in annotations) {
         const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         var annotation = {
@@ -30,7 +35,7 @@ saveAnnotation = (annotations, imageID, res) => {
             'label': i,
             'created_at': currentTime
         };
-        if (annotations[i][1].length === 0) {
+        if (annotations[i][1].length === 0 || isNaN(parseFloat(annotations[i][0]))) {
             annotation['string_value'] = annotations[i][0];
         } else {
             annotation['numeric_value'] = parseFloat(annotations[i][0]);
@@ -38,26 +43,41 @@ saveAnnotation = (annotations, imageID, res) => {
         }
         con.connection.query('INSERT INTO annotations SET ?', annotation, (err, result, fields) => {
             if (err) {
-                res.send("Cannot save data!");
+                console.log(err);
+                // resolve("Cannot save data!");
             } else {
-                res.send("Data saved");
+                // resolve("Data saved");
             }
-        })
+        });
     }
+    callback();
 }
 
 exports.addImageAnnotations = (req, res, next) => {
     console.log("annotate");
     const { imageID, annotations, title } = req.body;
-    saveAnnotation(annotations, imageID);
+    var updateQuery = "UPDATE images SET title = '" + title + "' WHERE id = " + imageID;
+    con.connection.query(updateQuery, (err, result, fields) => {
+        if (!err) {
+            saveAnnotation(annotations, imageID, () => {
+                res.send("annotated.");
+            });
+        }
+    });
 }
 
 exports.syncImageFromMobile = (req, res) => {
     var { annotations, title, userID } = req.body;
+    const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var image = {
         'path': req.file.filename,
         'user_id': parseInt(userID),
-        'title': title
+        'title': title,
+        'created_at': currentTime
     };
-    saveAnnotation(JSON.parse(annotations), saveImage(image), res);
+    saveImage(image).then((id) => {
+        saveAnnotation(JSON.parse(annotations), id, () => {
+            res.send("annotated.")
+        });
+    });
 }
