@@ -1,11 +1,10 @@
 // mysql connection
-const con = require('./Connection');
+const { con } = require('./db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 exports.register = (req, res) => {
     var today = new Date();
-    const time = today.getTime();
     
     bcrypt.hash(req.body.token, saltRounds, function(err, token) {
         // Store hash in your password DB.

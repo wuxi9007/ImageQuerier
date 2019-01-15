@@ -5,14 +5,11 @@ class ListItem extends Component {
         const { 
             containerStyle,
             imageStyle,
-            annotationContainerStyle,
-            annotationStyle,
-            annotationLabelStyle,
-            annotationValueStyle
+            annotationContainerStyle
         } = styles;
         return (
-            <div style={styles.containerStyle}>
-                <img src={this.props.image[0]} style={imageStyle} />
+            <div style={containerStyle}>
+                <img src={this.props.image[0]} style={imageStyle} alt={'default'} />
                 <div style={annotationContainerStyle}>
                     <div>Title: {this.props.image[2]}</div>
                     <br />

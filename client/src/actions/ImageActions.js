@@ -7,7 +7,6 @@ export const imageFetch = (callback) => {
         const url = baseURL + 'imageLibrary';
         axios.get(url)
             .then(res => {
-                console.log(res.data);
                 dispatch({
                     type: IMAGE_FETCH_SUCCESS,
                     payload: res.data
@@ -16,3 +15,19 @@ export const imageFetch = (callback) => {
             });
     }
 }
+
+// export const imageFetch = () => {
+//     return (dispatch) => {
+//         console.log('graphql fetching');
+//         fetch(baseURL + 'graphql', {
+//             method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json',
+//               'Accept': 'application/json',
+//             },
+//             body: JSON.stringify({query: "{ hello }"})
+//         }).then(r => r.json())
+//           .then(data => console.log('data returned:', data));
+          
+//     }
+// }

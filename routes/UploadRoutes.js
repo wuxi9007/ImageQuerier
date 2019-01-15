@@ -1,4 +1,4 @@
-const con = require('./Connection');
+const { con } = require('./db');
 
 const saveImage = (image) => {
     return new Promise((resolve, reject) => {

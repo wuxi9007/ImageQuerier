@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { imageFetch } from '../actions';
@@ -40,7 +40,7 @@ class ImageIndex extends Component {
 
     componentDidMount() {
         // Retrieve images from MySQL database
-        this.props.imageFetch(this.changeImages.bind(this));
+        this.props.imageFetch(this.changeImages.bind(this)); // 'this.changeImages.bind()' is a callback
     }
     
     render() {

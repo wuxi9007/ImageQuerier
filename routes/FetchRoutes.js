@@ -1,4 +1,4 @@
-const con = require('./Connection');
+const { con, sequelize } = require('./db');
 
 const getAnnotationFromImage = (item) => {
     return new Promise((resolve, reject) => {
