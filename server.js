@@ -14,7 +14,6 @@ app.use(cors());
 // save images in /public
 var path = require('path');
 var fs = require('fs');
-
 // provide image url: 'http://localhost:3210/image.png
 var dir = path.join(__dirname, 'public');
 app.use(express.static(dir));
@@ -39,7 +38,7 @@ var storage = multer.diskStorage({
         const ext = file.originalname.split('.').pop();
         cb(null, file.fieldname + '-' + Date.now() + '.' + ext);
     }
-});
+})
 var upload = multer({ storage });
 router.post('/createImage', upload.single('imageData'), ImageUpload.createImage);
 router.post('/addImageAnnotations', ImageUpload.addImageAnnotations);

@@ -1,4 +1,3 @@
-const Sequelize = require('sequelize');
 const mysql = require('mysql');
 const localMysql = {
     host: 'localhost',
@@ -9,26 +8,29 @@ const localMysql = {
 const con = mysql.createConnection(localMysql);
 con.connect();
 
-const sequelize = new Sequelize('weight_teller_development', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql',
-    operatorsAliases: false,
-    pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-    }
-});
+// const sequelize = new Sequelize('weight_teller_development', 'root', '', {
+//     host: 'localhost',
+//     dialect: 'mysql',
+//     operatorsAliases: false,
+//     pool: {
+//     max: 5,
+//     min: 0,
+//     acquire: 30000,
+//     idle: 10000
+//     }
+// });
+// sequelize.authenticate();
+module.exports.connection = con;
 
-module.exports = sequelize.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-        return { con, sequelize };
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+
+// exports.con = con;
+// sequelize.authenticate().then(() => {
+//     console.log('Connection has been established successfully.');
+//     exports.sequelize = sequelize;
+// })
+// .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+// });
 // // USER Schema
 // connection.query('CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), email VARCHAR(32), password_token VARCHAR(255), created_at DATETIME)');
 // // IMAGE Schema
