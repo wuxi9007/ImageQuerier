@@ -12,7 +12,7 @@ exports.register = (req, res) => {
         var user = {
             'email': req.body.email,
             'password_token': token,
-            'created_at': currentTime
+            'createdAt': currentTime
         }
         con.connection.query('INSERT INTO users SET ?', user, (err, result, fields) => {
             if (err) {
