@@ -1,32 +1,48 @@
-const { con, sequelize } = require('./db');
+const Annotation = require('../models').Annotation;
+const Image = require('../models').Image;
 
-const getAnnotationFromImage = (item) => {
+// Find all annotations for image
+const getAnnotationFromImage = (image) => {
     return new Promise((resolve, reject) => {
-        con.connection.query('SELECT * FROM annotations WHERE image_id = ?', item.id, (e, result, fields) => {
-            item['annotations'] = result;
-            // console.log(item);
-            resolve(item);
-        });
+        Annotation.findAll({
+            where: {
+                imageId: image.id
+            }
+        }).then(annotations => {
+            image['annotations'] = annotations;
+            resolve(image);
+        }); 
+        // con.connection.query('SELECT * FROM annotations WHERE imageId = ?', image.id, (e, result, fields) => {
+        //     image['annotations'] = result;
+        //     // console.log(item);
+        //     resolve(image);
+        // });
     });
 }
 
 async function imagesWithAnnotations(results) {
     let response = [];
-    for (const item of results) {
-        // console.log(item);
-        await getAnnotationFromImage(item).then((each) => {
+    for (const image of results) {
+        await getAnnotationFromImage(image).then((each) => {
             response.push(each);
         });
     }
-    console.log(response);
+    // console.log(response);
     return response;
 }
 // get All images
 exports.imageLibrary = (req, res) => {
     console.log('got request');
-    con.connection.query('SELECT * FROM images', (err, results, fields) => {
-        imagesWithAnnotations(results).then((response) => {
+    Image.findAll({
+        raw: true
+    }).then(images => {
+        imagesWithAnnotations(images).then((response) => {
             res.send(response);
         });
     });
+    // con.connection.query('SELECT * FROM images', (err, results, fields) => {
+    //     imagesWithAnnotations(results).then((response) => {
+    //         res.send(response);
+    //     });
+    // });
 }

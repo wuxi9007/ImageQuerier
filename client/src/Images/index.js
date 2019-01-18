@@ -28,6 +28,7 @@ class ImageIndex extends Component {
                         annotations.push([annot.label, val, annot.units]);
                     });
                 }
+                console.log(annotations);
                 const imageDetail = [url, annotations, title];
                 listOfImages.push(imageDetail);
             });
