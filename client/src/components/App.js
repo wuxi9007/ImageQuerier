@@ -7,18 +7,27 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from '../reducers';
 import ImageIndex from '../Images';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+
+const serverURI = 'http://localhost:3210/graphql'
+const client = new ApolloClient({
+    uri: serverURI
+});
 
 class App extends Component {
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
-      <Provider store={store} key={Math.random()}>
-        <Router>
-          <div>
-            <Route exact path="/" component={ImageIndex} />
-          </div>
-        </Router>
-      </Provider>
+      <ApolloProvider client={client}>
+        <Provider store={store} key={Math.random()}>
+          <Router>
+            <div>
+              <Route exact path="/" component={ImageIndex} />
+            </div>
+          </Router>
+        </Provider>
+      </ApolloProvider>
     );
   }
 }

@@ -48,12 +48,11 @@ router.post('/syncImageFromMobile', upload.single('imageData'), ImageUpload.sync
 router.get('/imageLibrary', Fetch.imageLibrary);
 
 // GraphQL schema
-// imageSchema
-const { imageSchema, imageRoot } = require('./schemas/ImageSchema');
-app.use('/images', graphqlHTTP({
-  schema: imageSchema,
-  rootValue: imageRoot,
-  graphiql: true,
+var { schema } = require('./schema');
+app.use('/graphql', graphqlHTTP({
+    schema,
+    pretty: true,
+    graphiql: true
 }));
 
 app.use(router);
