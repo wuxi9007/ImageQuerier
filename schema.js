@@ -8,6 +8,7 @@ var {
 } = require('graphql');
 const DbUser = require('./models').User;
 const DbImage = require('./models').Image;
+const DbAnnotation = require('./models').Annotation;
 
 const User = new GraphQLObjectType({
     name: 'User',
@@ -149,6 +150,16 @@ const Query = new GraphQLObjectType({
                 type: new GraphQLList(Image),
                 resolve(root, args) {
                     return DbImage.findAll({});
+                }
+            },
+            labels: {
+                type: new GraphQLList(GraphQLString),
+                resolve(root, args) {
+                    return DbAnnotation.aggregate(
+                        'label', 'Distinct', {plain: false}
+                    ).then(res => {
+                        return Array.from(res.filter(dis => dis['Distinct'] != null && dis['Distinct'].length > 0).map(dis => dis['Distinct']));
+                    });
                 }
             }
         }

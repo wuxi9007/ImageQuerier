@@ -7,7 +7,6 @@ export const imageFetch = (callback) => {
         const url = baseURL + 'imageLibrary';
         axios.get(url)
             .then(res => {
-                console.log(res.data);
                 dispatch({
                     type: IMAGE_FETCH_SUCCESS,
                     payload: res.data

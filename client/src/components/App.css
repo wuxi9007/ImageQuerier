@@ -30,3 +30,27 @@
     transform: rotate(360deg);
   }
 }
+
+/* General Page */
+.page-container {
+  padding-left: 2rem;
+  padding-right: 2rem
+}
+
+.page-title {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  display: flex;
+  justify-content: left;
+  font-size: 2rem
+}
+
+/* Hide a certain area */
+.hidden-field {
+  display: none;
+}
+
+/* Query Page */
+.attribute-field {
+  margin-bottom: 10px;
+}
