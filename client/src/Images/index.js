@@ -12,7 +12,7 @@ class ImageIndex extends Component {
     render() {
         return (
             <div className='page-container'>
-                <div className='page-title'>
+                <div className='section-title'>
                     <span className='icon-picture'></span><span>Recently uploaded images</span>
                 </div>
                 <div style={styles.outerBox}>

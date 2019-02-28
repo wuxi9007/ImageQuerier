@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Annotation = sequelize.define('Annotation', {
     label: DataTypes.STRING,
-    numeric_value: DataTypes.INTEGER,
+    numeric_value: DataTypes.FLOAT,
     string_value: DataTypes.STRING,
     units: DataTypes.STRING,
     imageId: DataTypes.INTEGER

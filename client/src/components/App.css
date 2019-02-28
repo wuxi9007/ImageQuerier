@@ -37,12 +37,16 @@
   padding-right: 2rem
 }
 
-.page-title {
+.section-title {
   padding-top: 1rem;
   padding-bottom: 2rem;
   display: flex;
   justify-content: left;
   font-size: 2rem
+}
+
+.main-div {
+  margin-bottom: 10px;
 }
 
 /* Hide a certain area */
