@@ -38,7 +38,6 @@ const saveAnnotation = (annotations, imageID, callback) => {
             'imageId': parseInt(imageID),
             'label': i
         });
-
         if (annotations[i][1].length === 0 && isNaN(parseFloat(annotations[i][0]))) {
             annotation.string_value = annotations[i][0];
         } else {

@@ -23,6 +23,32 @@ exports.register = (req, res) => {
                 user: resUser
             });
         });
+
+        // const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        // var user = {
+        //     'email': req.body.email,
+        //     'password_token': token,
+        //     'createdAt': currentTime
+        // }
+        // con.query('INSERT INTO users SET ?', user, (err, result, fields) => {
+        //     if (err) {
+        //         console.log(err);
+        //         res.send({
+        //             code: 400,
+        //             failed: 'Error!'
+        //         })
+        //     } else {
+        //         var resUser = {
+        //             _id: result.insertId.toString(),
+        //             pwdToken: token
+        //         }
+        //         res.send({
+        //             code: 200,
+        //             success: 'User successfully registered!',
+        //             user: resUser
+        //         })
+        //     }
+        // });
     });
 }
 
