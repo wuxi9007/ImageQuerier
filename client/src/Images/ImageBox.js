@@ -9,7 +9,7 @@ class ImageBox extends Component {
         return (
             <div className='column is-3'>
                 <div className='card'>
-                    <div className='card-image'>
+                    <div className='card-image' style={styles.imageWrapperStyle}>
                         <img src={imageBaseURL} alt={'default'} style={styles.imageStyle} />
                     </div>
                     <div style={styles.annotationPaddingStyle}>
@@ -39,8 +39,11 @@ const styles = {
         paddingBottom: 20,
         paddingRight: 20,
     },
+    imageWrapperStyle: {
+        textAlign: 'center'
+    },
     imageStyle: {
-        width: 400
+        height: 300
     },
     annotationStyle: {
         marginTop: 0,

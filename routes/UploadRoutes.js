@@ -27,16 +27,6 @@ exports.createImage = (req, res, next) => {
     }).catch((err) => {
         console.log(err);
     });
-    
-    // const image = {
-    //     'path': req.file.filename,
-    //     'user_id': parseInt(userID),
-    //     'createdAt': new Date().toISOString().slice(0, 19).replace('T', ' ')
-    // };
-    // saveImage(image).then((id) => {
-    //     console.log(id);
-    //     res.send(id);
-    // })
 }
 
 
@@ -49,27 +39,13 @@ const saveAnnotation = (annotations, imageID, callback) => {
             'label': i
         });
 
-        // const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        // var annotation = {
-        //     'image_id': imageID,
-        //     'label': i,
-        //     'created_at': currentTime
-        // };
-        if (annotations[i][1].length === 0 || isNaN(parseFloat(annotations[i][0]))) {
+        if (annotations[i][1].length === 0 && isNaN(parseFloat(annotations[i][0]))) {
             annotation.string_value = annotations[i][0];
         } else {
             annotation.numeric_value = parseFloat(annotations[i][0]);
             annotation.units = annotations[i][1];
         }
         annotation.save();
-        // con.connection.query('INSERT INTO annotations SET ?', annotation, (err, result, fields) => {
-        //     if (err) {
-        //         console.log(err);
-        //         // resolve("Cannot save data!");
-        //     } else {
-        //         // resolve("Data saved");
-        //     }
-        // });
     }
     callback();
 }

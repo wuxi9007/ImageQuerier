@@ -122,7 +122,7 @@ class ImageAttributeRow extends Component {
       
     renderUnits() {
         const { units } = this.props.propertyValues;
-        if (units === null || units === undefined) return '';
+        if (units === null || units === undefined || units.length === 0) return '';
         return ('(' + units + ')');
     }
 

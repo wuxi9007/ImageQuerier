@@ -133,12 +133,12 @@ const Annotation = new GraphQLObjectType({
 const getValues = (labels) => {
     const allValues = labels.map((label) => {
         return DbAnnotation.findOne({
-            attributes: ['units'],
+            attributes: ['units', 'numeric_value'],
             where: {
                 label
             }
         }).then(res => {
-            if (res.units === null || res.units.length === 0) {
+            if ((res.units === null || res.units.length === 0) && (res.numeric_value === null || isNaN(parseFloat(res.numeric_value)))) {
                 return DbAnnotation.findAll({
                     attributes: [Sequelize.fn('DISTINCT', Sequelize.col('string_value')) ,'string_value'],
                     where: { label }

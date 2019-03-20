@@ -25,7 +25,7 @@ const GeneralView = () => {
             if (error) return <p>Server connection failed.</p>;
             if (data.images.length === 0) return <p>No images found.</p>
             return <div className='columns is-multiline'>
-                    {data.images.map(({id, path, title, annotations}) => (
+                    {data.images.reverse().map(({id, path, title, annotations}) => (
                         <ImageBox key={id} path={path} title={title} annotations={annotations}>
                         </ImageBox>
                     ))}
