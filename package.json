@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha",
-    "db:migrate": "babel-node ./scripts/db/migrate",
-    "pretest": "NODE_ENV=test npm run db:migrate"
+    "test": "node_modules/.bin/mocha"
   },
   "author": "",
   "license": "ISC",
@@ -26,9 +24,11 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "jest": "^23.6.0",
     "mocha": "^6.0.2",
     "nock": "^10.0.6",
-    "sequelize-mock": "^0.10.2"
+    "sequelize-mock": "^0.10.2",
+    "sequelize-test-setup": "0.0.5"
   }
 }
